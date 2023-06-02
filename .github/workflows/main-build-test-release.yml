@@ -23,7 +23,7 @@ jobs:
           retention-days: 1
 
   release-backend-docker-image:
-    needs: [ backend-build-and-test, frontend-build-and-test ]
+    needs: [ backend-build-and-test]
     runs-on: ubuntu-latest
     environment: oskar-westmeijer-environment
     steps:
