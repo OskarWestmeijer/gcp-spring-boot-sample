@@ -43,8 +43,10 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: oskarwestmeijer/gcp-spring-boot-sample
+          images: ${{ secrets.DOCKER_USERNAME }}/gcp-spring-boot-sample
           tags: |
+            # set latest tag for master branch
+            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
             # full length sha
             type=sha,format=long
       - name: build and push backend image
@@ -53,4 +55,3 @@ jobs:
           context: .
           push: true
           tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
