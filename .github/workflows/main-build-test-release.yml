@@ -15,7 +15,9 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
           cache: maven
-      - run: ./mvnw clean verify
+      - run: | 
+          chmod +x mvnw 
+          ./mvnw clean verify
       - uses: actions/upload-artifact@v3
         with:
           name: app-jar
