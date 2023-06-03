@@ -47,8 +47,7 @@ jobs:
           tags: |
             # set latest tag for master branch
             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
-            # full length sha
-            type=sha,format=long
+            type=sha
       - name: build and push backend image
         uses: docker/build-push-action@v3
         with:
