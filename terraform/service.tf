@@ -1,7 +1,6 @@
 resource "google_cloud_run_service" "gcp_spring_boot_sample" {
   name     = "gcp-spring-boot-sample"
   location = var.project_region
-  ingress  = "INGRESS_TRAFFIC_ALL"
 
   template {
     spec {
@@ -15,12 +14,16 @@ resource "google_cloud_run_service" "gcp_spring_boot_sample" {
         }
       }
     }
-
     metadata {
       annotations = {
         "autoscaling.knative.dev/maxScale" = "1"
       }
     }
-
   }
+
+  traffic {
+    percent         = 100
+    latest_revision = true
+  }
+
 }
