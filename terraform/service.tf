@@ -17,7 +17,7 @@ resource "google_cloud_run_service" "gcp_spring_boot_sample" {
     metadata {
       annotations = {
         "autoscaling.knative.dev/maxScale" = "1"
-        "run.googleapis.com/ingress" = "all"
+        "run.googleapis.com/ingress"       = "all"
       }
     }
   }
