@@ -9,7 +9,7 @@ on:
       - '!main'     # excludes main
 
 jobs:
-  backend-build-and-test:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -18,4 +18,6 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
           cache: maven
-      - run: ./mvnw clean verify
+      - run: |
+          chmod +x mvnw 
+          ./mvnw clean verify
