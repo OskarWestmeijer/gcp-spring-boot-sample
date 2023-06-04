@@ -79,9 +79,14 @@ jobs:
       - name: Terraform Format
         run: terraform fmt -check
 
+      - name: get commit sha
+        id: commitsha
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
       - name: Terraform Plan
         run: terraform plan
         env:
+          TF_VAR_service_image: ${{ secrets.DOCKER_USERNAME }}/gcp-spring-boot-sample:sha-${{ steps.commitsha.outputs.sha_short }}
           GOOGLE_CREDENTIALS: ${{ secrets.GCP_INFRA_SERVICE_ACCOUNT }}
 
         # On push to main, build or change infrastructure according to Terraform configuration files
@@ -89,4 +94,5 @@ jobs:
       - name: Terraform Apply
         run: terraform apply -auto-approve
         env:
+          TF_VAR_service_image: ${{ secrets.DOCKER_USERNAME }}/gcp-spring-boot-sample:sha-${{ steps.commitsha.outputs.sha_short }}
           GOOGLE_CREDENTIALS: ${{ secrets.GCP_INFRA_SERVICE_ACCOUNT }}
