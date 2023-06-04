@@ -17,6 +17,7 @@ resource "google_cloud_run_service" "gcp_spring_boot_sample" {
     metadata {
       annotations = {
         "autoscaling.knative.dev/maxScale" = "1"
+        "run.googleapis.com/ingress" = "all"
       }
     }
   }
@@ -26,4 +27,13 @@ resource "google_cloud_run_service" "gcp_spring_boot_sample" {
     latest_revision = true
   }
 
+}
+
+resource "google_cloud_run_service_iam_binding" "service_access_control" {
+  location = google_cloud_run_service.gcp_spring_boot_sample.location
+  service  = google_cloud_run_service.gcp_spring_boot_sample.name
+  role     = "roles/run.invoker"
+  members = [
+    "allUsers"
+  ]
 }
