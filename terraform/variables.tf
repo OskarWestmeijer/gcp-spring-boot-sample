@@ -19,11 +19,11 @@ variable "project_zone" {
 variable "gcp_service_list" {
   description = "The list of apis necessary for the project"
   type        = list(string)
-  default     = [
+  default = [
   ]
 }
 
 variable "service_image" {
   description = "Image to be deployed"
-  default = "organization/name:tag"
+  default     = "organization/name:tag"
 }

@@ -68,6 +68,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: get commit sha
+        id: commitsha
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
 
@@ -78,10 +82,6 @@ jobs:
 
       - name: Terraform Format
         run: terraform fmt -check
-
-      - name: get commit sha
-        id: commitsha
-        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
       - name: Terraform Plan
         run: terraform plan
