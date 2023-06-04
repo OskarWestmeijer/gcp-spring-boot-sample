@@ -10,7 +10,6 @@
 	</parent>
 	<groupId>westmeijer.oskar</groupId>
 	<artifactId>gcp-spring-boot-sample</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>gcp-spring-boot-sample</name>
 	<description>Explore GCP Cloud Run</description>
 	<properties>
