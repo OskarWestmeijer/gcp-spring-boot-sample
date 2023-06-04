@@ -6,7 +6,7 @@ on:
       commit-sha:
         description: 'Image tag to deploy'
         required: true
-        default: '???'
+        default: 'sha-<7-chars>'
 
 jobs:
   terraform:
