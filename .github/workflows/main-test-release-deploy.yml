@@ -5,7 +5,7 @@ on:
     branches:
       - main
 jobs:
-  backend-build-and-test:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -15,7 +15,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
           cache: maven
-      - run: | 
+      - run: |
           chmod +x mvnw 
           ./mvnw clean verify
       - uses: actions/upload-artifact@v3
@@ -24,8 +24,8 @@ jobs:
           path: target/app.jar
           retention-days: 1
 
-  release-backend-docker-image:
-    needs: [ backend-build-and-test]
+  release-docker-image:
+    needs: [ build-and-test ]
     runs-on: ubuntu-latest
     environment: oskar-westmeijer-environment
     steps:
@@ -54,8 +54,8 @@ jobs:
           context: .
           push: true
           tags: ${{ steps.meta.outputs.tags }}
-  terraform:
-    name: 'apply terraform config'
+  deploy-to-gcp:
+    needs: [ release-docker-image ]
     runs-on: ubuntu-latest
     environment: oskar-westmeijer-environment
 

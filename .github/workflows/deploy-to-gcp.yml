@@ -9,8 +9,7 @@ on:
         default: 'sha-<7-chars>'
 
 jobs:
-  terraform:
-    name: 'apply terraform config'
+  deploy-to-gcp:
     runs-on: ubuntu-latest
     environment: oskar-westmeijer-environment
 
