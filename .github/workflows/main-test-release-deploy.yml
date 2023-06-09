@@ -46,7 +46,7 @@ jobs:
     uses: OskarWestmeijer/gcp-spring-boot-sample/.github/workflows/codeql.yml@main
 
   release-docker-image:
-    needs: [ terraform-fmt, build-and-test ]
+    needs: [ build-and-test, terraform-check, codeql-check ]
     runs-on: ubuntu-latest
     environment: oskar-westmeijer-environment
     steps:
@@ -75,11 +75,11 @@ jobs:
           context: .
           push: true
           tags: ${{ steps.meta.outputs.tags }}
+
   deploy-to-gcp:
     needs: [ release-docker-image ]
     runs-on: ubuntu-latest
     environment: oskar-westmeijer-environment
-
     defaults:
       run:
         shell: bash
