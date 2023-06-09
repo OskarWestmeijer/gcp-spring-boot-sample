@@ -43,7 +43,7 @@ jobs:
         run: terraform validate
 
   codeql-check:
-    uses: ./.github/workflows/codeql.yml@main
+    uses: ./.github/workflows/codeql.yml
     permissions:
       actions: read
       contents: read
