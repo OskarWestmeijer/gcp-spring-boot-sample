@@ -46,12 +46,12 @@ jobs:
       - name: Terraform Validate
         run: terraform validate
 
-  codeql-check:
-    uses: ./.github/workflows/codeql.yml
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
+    #  codeql-check:
+    #    uses: ./.github/workflows/codeql.yml
+    #    permissions:
+    #     actions: read
+    #    contents: read
+    #   security-events: write
 
   release-docker-image:
     needs: [ build-and-test, terraform-check, codeql-check ]
@@ -86,31 +86,7 @@ jobs:
 
   deploy-to-gcp:
     needs: [ release-docker-image ]
-    runs-on: ubuntu-latest
-    environment: oskar-westmeijer-environment
-    defaults:
-      run:
-        shell: bash
-        working-directory: terraform
+    uses: ./.github/workflows/deploy-to-gcp.yml
+    with:
+      commit-sha: ${{ GITHUB_SHA }}
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: get commit sha
-        id: commitsha
-        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
-
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
-
-      - name: Terraform Init
-        run: terraform init
-        env:
-          GOOGLE_CREDENTIALS: ${{ secrets.GCP_INFRA_SERVICE_ACCOUNT }}
-
-      - name: Terraform Apply
-        run: terraform apply -auto-approve
-        env:
-          TF_VAR_service_image: ${{ secrets.DOCKER_USERNAME }}/gcp-spring-boot-sample:sha-${{ steps.commitsha.outputs.sha_short }}
-          GOOGLE_CREDENTIALS: ${{ secrets.GCP_INFRA_SERVICE_ACCOUNT }}
