@@ -88,5 +88,5 @@ jobs:
     needs: [ release-docker-image ]
     uses: ./.github/workflows/deploy-to-gcp.yml
     with:
-      commit-sha: ${{ $GITHUB_SHA }}
+      commit-sha: ${{ github.sha }}
 
