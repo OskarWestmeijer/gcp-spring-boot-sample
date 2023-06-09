@@ -46,15 +46,15 @@ jobs:
       - name: Terraform Validate
         run: terraform validate
 
-    #  codeql-check:
-    #    uses: ./.github/workflows/codeql.yml
-    #    permissions:
-    #     actions: read
-    #    contents: read
-    #   security-events: write
+  codeql-check:
+    uses: ./.github/workflows/codeql.yml
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
 
   release-docker-image:
-    needs: [ build-and-test, terraform-check ]
+    needs: [ build-and-test, terraform-check, codeql-check ]
     runs-on: ubuntu-latest
     environment: oskar-westmeijer-environment
     steps:
