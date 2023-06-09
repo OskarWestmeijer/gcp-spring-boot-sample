@@ -54,7 +54,7 @@ jobs:
     #   security-events: write
 
   release-docker-image:
-    needs: [ build-and-test, terraform-check, codeql-check ]
+    needs: [ build-and-test, terraform-check ]
     runs-on: ubuntu-latest
     environment: oskar-westmeijer-environment
     steps:
