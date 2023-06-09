@@ -89,4 +89,5 @@ jobs:
     uses: ./.github/workflows/deploy-to-gcp.yml
     with:
       commit-sha: ${{ github.sha }}
+    secrets: inherit
 
