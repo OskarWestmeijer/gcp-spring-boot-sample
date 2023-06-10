@@ -68,7 +68,7 @@ jobs:
           path: target
       - name: build image
         run: |
-          docker build -t '${{ secrets.DOCKER_USERNAME }}/gcp-spring-boot-sample:sha-${{ github.sha }} .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/gcp-spring-boot-sample:sha-${{ github.sha }} .
       - name: trivy image scan
         uses: aquasecurity/trivy-action@master
         with:
