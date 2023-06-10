@@ -52,7 +52,6 @@ jobs:
       security-events: write
 
   dependabot-automerge:
-    name: 'Dependabot'
     needs: [ build-and-test, terraform-check, codeql-check ]
     runs-on: ubuntu-latest
     if: ${{ github.actor == 'dependabot[bot]' && github.event_name == 'pull_request'}}
