@@ -1,14 +1,6 @@
 name: build-test-release-deploy
 
-on:
-  - push
-  - pull_request
-
-
-permissions:
-  pull-requests: write
-  contents: write
-  repository-projects: write
+on: [ push, pull_request ]
 
 jobs:
   build-and-test:
