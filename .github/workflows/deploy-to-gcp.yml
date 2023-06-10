@@ -1,4 +1,4 @@
-name: 'deploy-gcp-project-infrastructure'
+name: 'deploy-to-gcp'
 
 on:
   workflow_call:

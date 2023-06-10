@@ -1,9 +1,8 @@
-name: main-build-test-release
+name: build-test-release-deploy
 
 on:
-  push:
-    branches:
-      - main
+  push
+
 jobs:
 
   build-and-test:
