@@ -2,6 +2,11 @@ name: build-test-release-deploy
 
 on: [ push, pull_request ]
 
+permissions:
+  pull-requests: write
+  contents: write
+  repository-projects: write
+
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
@@ -93,17 +98,17 @@ jobs:
       - name: Dependabot metadata
         uses: dependabot/fetch-metadata@v1
         with:
-          github-token: '${{ secrets.GITHUB_TOKEN }}'
+          github-token: '${{ secrets.MASTER_TOKEN }}'
       - name: approve PR
         run: gh pr review --approve "$PR_URL"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.MASTER_TOKEN }}
       - name: Enable auto-merge for Dependabot PRs
         run: gh pr merge --auto --squash "$PR_URL"
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{secrets.MASTER_TOKEN}}
 
   release-docker-image:
     needs: [ build-and-test, terraform-check, codeql-check ]
