@@ -57,6 +57,7 @@ jobs:
     needs: [ build-and-test, terraform-check, codeql-check ]
     runs-on: ubuntu-latest
     environment: oskar-westmeijer-environment
+    if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v3
       - name: Log in to Docker Hub
@@ -86,6 +87,7 @@ jobs:
 
   deploy-to-gcp:
     needs: [ release-docker-image ]
+    if: github.ref == 'refs/heads/main'
     uses: ./.github/workflows/deploy-to-gcp.yml
     with:
       commit-sha: ${{ github.sha }}
