@@ -4,7 +4,6 @@ on:
   push
 
 jobs:
-
   build-and-test:
     runs-on: ubuntu-latest
     steps:
@@ -51,6 +50,23 @@ jobs:
       actions: read
       contents: read
       security-events: write
+
+  dependabot-automerge:
+    name: 'Dependabot'
+    needs: [ build-and-test, terraform-check, codeql-check ]
+    runs-on: ubuntu-latest
+    if: ${{ github.actor == 'dependabot[bot]' && github.event_name == 'pull_request'}}
+    steps:
+      - name: Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v1.5.1
+        with:
+          github-token: '${{ secrets.GITHUB_TOKEN }}'
+      - name: Enable auto-merge for Dependabot PRs
+        run: gh pr merge --auto --squash "$PR_URL"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
   release-docker-image:
     needs: [ build-and-test, terraform-check, codeql-check ]
