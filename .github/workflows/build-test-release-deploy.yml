@@ -1,11 +1,13 @@
 name: build-test-release-deploy
 
 on:
-  push
+  - push
+  - pull_request
+
 
 permissions:
   pull-requests: write
-  issues: write
+  contents: write
   repository-projects: write
 
 jobs:
