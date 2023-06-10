@@ -88,6 +88,7 @@ jobs:
     environment: oskar-westmeijer-environment
     if: ${{ github.actor == 'dependabot[bot]' }}
     steps:
+      - uses: actions/checkout@v3
       - name: Dependabot metadata
         id: metadata
         uses: dependabot/fetch-metadata@v1.5.1
