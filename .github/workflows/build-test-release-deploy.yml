@@ -104,10 +104,6 @@ jobs:
     runs-on: ubuntu-latest
     environment: oskar-westmeijer-environment
     if: github.ref == 'refs/heads/main'
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
     steps:
       - uses: actions/checkout@v3
       - name: login to DockerHub
