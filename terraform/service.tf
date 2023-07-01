@@ -1,6 +1,7 @@
 resource "google_cloud_run_service" "gcp_spring_boot_sample" {
   name     = "gcp-spring-boot-sample"
   location = var.project_region
+  count = var.service_active
 
   template {
     spec {
@@ -30,8 +31,9 @@ resource "google_cloud_run_service" "gcp_spring_boot_sample" {
 }
 
 resource "google_cloud_run_service_iam_binding" "service_access_control" {
-  location = google_cloud_run_service.gcp_spring_boot_sample.location
-  service  = google_cloud_run_service.gcp_spring_boot_sample.name
+  count = length(google_cloud_run_service.gcp_spring_boot_sample)
+  location = google_cloud_run_service.gcp_spring_boot_sample[count.index].location
+  service  = google_cloud_run_service.gcp_spring_boot_sample[count.index].name
   role     = "roles/run.invoker"
   members = [
     "allUsers"

@@ -6,7 +6,7 @@ provider "google" {
 
 terraform {
   backend "gcs" {
-    bucket = "gcp-spring-boot-sample-tfstate"
-    prefix = "terraform/state"
+    bucket = "westmeijer-oskar-tfstate-bucket"
+    prefix = "gcp-spring-boot-sample"
   }
 }

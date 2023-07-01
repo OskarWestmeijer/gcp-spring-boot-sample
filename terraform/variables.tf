@@ -27,3 +27,8 @@ variable "service_image" {
   description = "Image to be deployed"
   default     = "organization/name:tag"
 }
+
+variable "service_active" {
+  description = "Decides if cloud run service should be active"
+  default     = 1
+}
