@@ -25,7 +25,6 @@ variable "gcp_service_list" {
 
 variable "service_image" {
   description = "Image to be deployed"
-  default     = "organization/name:tag"
 }
 
 variable "service_active" {
